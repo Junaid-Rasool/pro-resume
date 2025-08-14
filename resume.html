@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="resume.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+<body>
+
+<!-- Homepage Container -->
+<div id="homepage-container" class="container">
+    <div class="homepage" id="homepage-side">
+        <div class="logo-slider-container">
+            <div class="logo-slider" id="logo-slider">
+                <!-- logos as before -->
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/800px-Tata_logo.svg.png" alt="Tata Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/NASA_seal.svg/250px-NASA_seal.svg.png" alt="NASA Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/800px-GitHub_Invertocat_Logo.svg.png" alt="Github Logo" />
+                </div>
+                <!-- Add all logos repeated -->
+                 <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/800px-Tata_logo.svg.png" alt="Tata Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/NASA_seal.svg/250px-NASA_seal.svg.png" alt="NASA Logo" />
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/800px-GitHub_Invertocat_Logo.svg.png" alt="Github Logo" />
+                </div>
+                <!-- ... -->
+            </div>
+        </div>
+        <div class="homepage-text" id="homepage-text">
+            <p>Craft your perfect resume with ease.</p>
+            <hr/>
+            <hr/>
+            <hr/>
+            <hr/>
+            <h3>GOOD RESUMES LAND GOOD JOBS.</h3>
+</div>
+
+        <div class="resume-btn" id="resume-btn">
+            <button id="create-btn">CREATE YOUR RESUME</button>
+        </div>
+    </div>
+</div>
+
+<!-- Form Container - initially hidden -->
+<div id="form-container" class="container" style="display:none;">
+    <div class="form-side" id="form-side">
+        <h2 class="form-heading">BUILD YOUR RESUME</h2>
+        <form id="resume-form">
+            <h3>First Name</h3>
+            <input name="firstName" type="text" placeholder="First Name" required>
+            <h3>Middle Name</h3>
+            <input name="middleName" type="text" placeholder="Middle Name">
+            <h3>Last Name</h3>
+            <input name="lastName" type="text" placeholder="Last Name" required>
+            <h3>Address</h3>
+            <input name="address" type="text" placeholder="Address" required>
+            <h3>Pin Code</h3>
+            <input name="pinCode" type="text" placeholder="Pin Code" required>
+            <h3>Email</h3>
+            <input name="email" type="email" placeholder="Email" required>
+            <h3>Phone</h3>
+            <input name="phone" type="text" placeholder="Phone" required>
+            <h3>Professional Summary</h3>
+            <textarea name="summary" type="text" placeholder="Professional Summary" required></textarea>
+
+            <h3>Certifications & Trainings</h3>
+            <textarea name="certifications" placeholder="Enter your certifications and trainings"></textarea>
+            <h3>Work Experience</h3>
+            <textarea name="experience" type="text" placeholder="Work Experience (in years)"></textarea>
+            <h3>Education</h3>
+            <textarea name="education" placeholder="Enter your educational background here (highest qualification)"></textarea>
+            <h3>Hobbies</h3>
+            <textarea name="hobbies" placeholder="Enter your hobbies here"></textarea>
+
+            <h3>Skills</h3>
+            <textarea name="skills" placeholder="Enter your skills here"></textarea>
+            
+            <button type="submit">SAVE AND SHOW TEMPLATES</button>
+        </form>
+    </div>
+    <div class="text-side" id="preview-side" style="display:none;">
+        <!-- Live preview will be injected here -->
+    </div>
+</div>
+
+<!-- Templates Container - initially hidden -->
+<div id="templates-container" class="templates-container" style="display:none;">
+    <h2>Select a Template</h2>
+    <div class="templates-grid" id="templates-grid">
+        </div>
+
+    <div id="resume-output" style="margin-top:30px; text-align: left; background-color: #f0f0f0; border-radius: 8px;">
+        </div>
+</div>
+
+<footer>
+   &copy; 2025 All rights reserved.
+</footer>
+
+<script src="resume.js"></script>
+</body>
+</html>
