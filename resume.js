@@ -55,7 +55,8 @@ function updatePreview(e) {
     const form = e.target.form;
     if (!form) return;
     const liveData = Object.fromEntries(new FormData(form).entries());
-    previewSide.innerHTML = generateResumeHTML('default', liveData);
+    // Sanitize the HTML output right before injection
+    previewSide.innerHTML = DOMPurify.sanitize(generateResumeHTML('default', liveData));
 }
 
 function saveForm(e) {
@@ -96,8 +97,8 @@ templatesGrid.addEventListener('click', (e) => {
 
 function renderTemplate(id) {
     const htmlContent = generateResumeHTML(id, formData);
-    // Remove any old controls then inject fresh content
-    resumeOutput.innerHTML = htmlContent;
+    // Sanitize the HTML output right before injection
+    resumeOutput.innerHTML = DOMPurify.sanitize(htmlContent);
 
     if (id === 'classic') {
         resumeOutput.classList.remove('a4-preview');
@@ -120,23 +121,22 @@ function renderTemplate(id) {
 }
 
 function generateResumeHTML(id, data) {
-    // Sanitize all user-provided data to prevent XSS
-    const sanitizedFullName = DOMPurify.sanitize(`${data.firstName || ''} ${data.middleName || ''} ${data.lastName || ''}`.trim() || "Your Name");
-    const sanitizedAddressLine = DOMPurify.sanitize(`${data.address || ''}, ${data.pinCode || ''}`.trim() || "Address, Pin Code");
-    const sanitizedContactLine = DOMPurify.sanitize(`${data.email || ''} | ${data.phone || ''}`.trim() || "Email | Phone");
+    const fullName = `${data.firstName || ''} ${data.middleName || ''} ${data.lastName || ''}`.trim() || "Your Name";
+    const addressLine = `${data.address || ''}, ${data.pinCode || ''}`.trim() || "Address, Pin Code";
+    const contactLine = `${data.email || ''} | ${data.phone || ''}`.trim() || "Email | Phone";
 
-    const sanitizedCertsHTML = data.certifications ? convertToBullets(DOMPurify.sanitize(data.certifications)) : '';
-    const sanitizedEducationHTML = data.education ? convertToBullets(DOMPurify.sanitize(data.education)) : '';
-    const sanitizedSummary = DOMPurify.sanitize(data.summary || '');
-    const sanitizedExperience = DOMPurify.sanitize(data.experience || '');
-    const sanitizedSkillsHTML = data.skills ? convertToBullets(DOMPurify.sanitize(data.skills)) : '';
-    const sanitizedHobbiesHTML = data.hobbies ? convertToBullets(DOMPurify.sanitize(data.hobbies)) : '';
+    const certsHTML = data.certifications ? convertToBullets(data.certifications) : '';
+    const educationHTML = data.education ? convertToBullets(data.education) : '';
+    const summary = data.summary || '';
+    const experience = data.experience || '';
+    const skillsHTML = data.skills ? convertToBullets(data.skills) : '';
+    const hobbiesHTML = data.hobbies ? convertToBullets(data.hobbies) : '';
 
     const createSection = (title, content, isHtml = false) => {
         if (!content) return '';
         return `
             <div class="resume-section page-break">
-                <h3>${DOMPurify.sanitize(title)}</h3>
+                <h3>${title}</h3>
                 ${isHtml ? content : `<p>${content}</p>`}
             </div>
         `;
@@ -326,8 +326,7 @@ body, html {
 </body>
 </html>`);
     doc.close();
-    // Uncomment this if you want to auto-open print dialog
+
+// Uncomment this if you want to auto-open print dialog
      w.onload = () => w.print();
 }
-
-
