@@ -120,22 +120,23 @@ function renderTemplate(id) {
 }
 
 function generateResumeHTML(id, data) {
-    const fullName = `${data.firstName || ''} ${data.middleName || ''} ${data.lastName || ''}`.trim() || "Your Name";
-    const addressLine = `${data.address || ''}, ${data.pinCode || ''}`.trim() || "Address, Pin Code";
-    const contactLine = `${data.email || ''} | ${data.phone || ''}`.trim() || "Email | Phone";
+    // Sanitize all user-provided data to prevent XSS
+    const sanitizedFullName = DOMPurify.sanitize(`${data.firstName || ''} ${data.middleName || ''} ${data.lastName || ''}`.trim() || "Your Name");
+    const sanitizedAddressLine = DOMPurify.sanitize(`${data.address || ''}, ${data.pinCode || ''}`.trim() || "Address, Pin Code");
+    const sanitizedContactLine = DOMPurify.sanitize(`${data.email || ''} | ${data.phone || ''}`.trim() || "Email | Phone");
 
-    const certsHTML = data.certifications ? convertToBullets(data.certifications) : '';
-    const educationHTML = data.education ? convertToBullets(data.education) : '';
-    const summary = data.summary || '';
-    const experience = data.experience || '';
-    const skillsHTML = data.skills ? convertToBullets(data.skills) : '';
-    const hobbiesHTML = data.hobbies ? convertToBullets(data.hobbies) : '';
+    const sanitizedCertsHTML = data.certifications ? convertToBullets(DOMPurify.sanitize(data.certifications)) : '';
+    const sanitizedEducationHTML = data.education ? convertToBullets(DOMPurify.sanitize(data.education)) : '';
+    const sanitizedSummary = DOMPurify.sanitize(data.summary || '');
+    const sanitizedExperience = DOMPurify.sanitize(data.experience || '');
+    const sanitizedSkillsHTML = data.skills ? convertToBullets(DOMPurify.sanitize(data.skills)) : '';
+    const sanitizedHobbiesHTML = data.hobbies ? convertToBullets(DOMPurify.sanitize(data.hobbies)) : '';
 
     const createSection = (title, content, isHtml = false) => {
         if (!content) return '';
         return `
             <div class="resume-section page-break">
-                <h3>${title}</h3>
+                <h3>${DOMPurify.sanitize(title)}</h3>
                 ${isHtml ? content : `<p>${content}</p>`}
             </div>
         `;
@@ -328,4 +329,5 @@ body, html {
     // Uncomment this if you want to auto-open print dialog
      w.onload = () => w.print();
 }
+
 
