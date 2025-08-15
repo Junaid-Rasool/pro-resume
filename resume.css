@@ -19,8 +19,49 @@ body, html {
 /* Homepage Container */
 .container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
+
+.top-text {
+  position: relative;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.top-text h4 {
+  display: inline-block;
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 0.3em;
+  color: #3b3838;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 10px 20px;
+  
+  /* Transparent neon background */
+  background: linear-gradient(270deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  background-size: 400% 400%;
+  border-radius: 8px;
+  
+  /* Glow */
+  box-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.1);
+  
+  /* Animation */
+  animation: gradientShift 6s ease infinite, textGlow 2s ease-in-out infinite alternate;
+}
+
+/* Shifting gradient background */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gentle glow pulsing */
+@keyframes textGlow {
+  0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #00ffe0; }
+}
+
 
 /* Homepage Section - The core of the design */
 .homepage {
@@ -28,54 +69,21 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     justify-content: space-between; /* Space out the logo, text, and button */
     overflow: hidden;
     padding: 20px;
     
     /* Subtle, professional dark background with a slight pattern */
-    background: #1a1a1a url(https://www.transparenttextures.com/patterns/black-linen.png);
+    background-color: #1a1a1a;
+    background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 2px,
+    transparent 2px,
+    transparent 4px
+    );
     color: #e0e0e0;
-}
-
-/* Logo slider container */
-.logo-slider-container {
-    width: 80%;
-    max-width: 800px;
-    overflow: hidden;
-    border: solid 1px #444;
-    border-radius: 50px;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-}
-
-/* Logos row with animation */
-.logo-slider {
-    display: flex;
-    /* Use a high number to ensure a smooth loop with no visible break */
-    width: calc(10 * 180px); 
-    animation: swipe-left 25s linear infinite;
-}
-
-.logo-item {
-    flex: 0 0 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.logo-item img {
-    max-width: 160px;
-    max-height: 80px;
-    object-fit: contain;
-    /* Blend the logos into the dark background */
-    filter: brightness(1.5) grayscale(1) opacity(0.8);
-    transition: filter 0.3s ease;
-}
-
-.logo-item img:hover {
-    filter: brightness(1) grayscale(0) opacity(1);
 }
 
 /* Homepage Text Styles */
@@ -91,7 +99,7 @@ body, html {
     margin-bottom: 10px;
 }
 
-.homepage-text h3 {
+.homepage h3 {
     font-size: 3rem;
     font-weight: 800;
     letter-spacing: 4px;
@@ -108,7 +116,7 @@ body, html {
     border-radius: 50px;
     color: rgb(25, 20, 20);
     font-family: Consolas, 'Courier New', monospace;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
     background: linear-gradient(to right, 
@@ -161,6 +169,12 @@ button:hover {
     background: linear-gradient(135deg, #3399ff, #0044aa);
 }
 
+
+.form-container {
+    height: 100vh; /* Full screen height */
+    display: flex;
+}
+
 /* Form Side */
 .form-side {
     flex: 5;
@@ -196,7 +210,8 @@ form button {
     border: 1px solid;
     border-color: #000;
     border-radius: 8px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 form button:hover {
@@ -271,7 +286,7 @@ form button:hover {
     flex: 5;
     background: linear-gradient(5deg, #dcecac, #6490ad, #5f6c42);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 20px;
     overflow-y: auto;
