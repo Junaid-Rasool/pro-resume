@@ -325,4 +325,7 @@ body, html {
 </body>
 </html>`);
     doc.close();
+    // Uncomment this if you want to auto-open print dialog
+     w.onload = () => w.print();
 }
+
