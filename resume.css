@@ -877,6 +877,15 @@ form#resume-form {
     width: fit-content;
 }
 
+.technical-template {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Inter", Arial, sans-serif;
+  color: #2a2a2a;
+  background: #fff;
+}
+
 .technical-template hr{
     border: 1px solid #010101;
     margin: 20px 0;;
@@ -1271,4 +1280,5 @@ form#resume-form {
         break-after: avoid;
     }
 }
+
 
