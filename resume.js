@@ -82,12 +82,12 @@ function renderTemplate(id) {
     btnContainer.style.textAlign = 'center';
     btnContainer.style.padding = '20px';
 
-    const previewBtn = document.createElement('button');
-    previewBtn.textContent = "Preview PDF";
-    previewBtn.id = "preview-pdf-btn";
-    previewBtn.addEventListener('click', () => previewPDF(id));
+    const downloadBtn = document.createElement('button');
+    downloadBtn.textContent = "Download PDF";
+    downloadBtn.id = "download-pdf-btn";
+    downloadBtn.addEventListener('click', () => downloadPDF(id));
 
-    btnContainer.appendChild(previewBtn);
+    btnContainer.appendChild(downloadBtn);
     resumeOutput.appendChild(btnContainer);
 }
 
@@ -283,95 +283,21 @@ document.getElementById("theme").addEventListener("change", function () {
 });
 
 // === Preview PDF ===
-function previewPDF(templateId){
-    const original = resumeOutput.querySelector('.resume-preview');
-    if(!original){
+function downloadPDF(templateId) {
+    const resumeElement = resumeOutput.querySelector('.resume-preview');
+    if (!resumeElement) {
         alert('Error: Could not find resume content.');
         return;
     }
 
-    const w = window.open('', '_blank');
-    if(!w){
-        alert('Please allow popups for this site.');
-        return;
-    }
+    const opt = {
+        margin:       [0.3, 0.3, 0.3, 0.3], // top, left, bottom, right
+        filename:     'My_Resume.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
 
-    const doc = w.document;
-    doc.open();
-    doc.write(`<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Resume Preview</title>
-
-<!-- Keep your existing styling -->
-<link rel="stylesheet" href="resume.css">
-
-<style>
-    /* Hide scrollbars for all browsers when printing */
-body, html {
-    overflow: visible !important;
-}
-
-::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-}
-
-* {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;     /* Firefox */
-}
-
-    body {
-        background: #ccc;
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-    .preview-a4-page {
-        width: 794px; /* A4 width */
-        min-height: 1123px; /* A4 height */
-        background: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        padding: 20mm;
-    }
-   @page {
-    size: A4;
-    margin: 6mm 8mm; /* top-bottom 6mm, left-right 8mm */
-     }
-
-    @media print {
-        body {
-            background: white !important;
-            padding: 0;
-        }
-        .preview-a4-page {
-            box-shadow: none !important;
-            background: white !important;
-            overflow: visible !important;
-            height: auto !important;
-            page-break-after: always;
-        }
-        .resume-preview,
-        .resume-body {
-        overflow: visible !important;
-        height: auto !important;
-        max-height: none !important;
-        }
-    }
-</style>
-</head>
-<body>
-    <div class="preview-a4-page">
-        ${original.outerHTML}
-    </div>
-</body>
-</html>`);
-    doc.close();
-
-// Uncomment this if you want to auto-open print dialog
-     w.onload = () => w.print();
+    // Use html2pdf to capture and download
+    html2pdf().set(opt).from(resumeElement).save();
 }
