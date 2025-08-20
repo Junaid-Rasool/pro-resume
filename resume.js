@@ -1,67 +1,38 @@
-const createBtn = document.getElementById('create-btn');
-const homepageContainer = document.getElementById('homepage-container');
-const formContainer = document.getElementById('form-container');
+document.getElementById('add-experience-btn').addEventListener('click', function() {
+    // Get the container where the inputs are
+    const container = document.getElementById('experience-container');
+
+    // Create a new div to hold the next set of fields
+    const newEntry = document.createElement('div');
+    newEntry.className = 'experience-input-group';
+    
+    // Fill the new div with the exact same HTML as the first entry
+    newEntry.innerHTML = `
+        <input type="text" name="company[]" placeholder="Company Name" required>
+        <input type="text" name="dates[]" placeholder="Dates (e.g., 2015-2018)" required>
+        <textarea name="description[]" placeholder="Description of your role and responsibilities" required></textarea>
+    `;
+
+    // Append the new div to the container
+    container.appendChild(newEntry);
+});
+
+
+
+// === Containers ===
+const homepageSide = document.getElementById('homepage-side');
 const templatesContainer = document.getElementById('templates-container');
-const previewSide = document.getElementById('preview-side');
+const templatesGrid = templatesContainer.querySelector('.template-grid');
 const resumeOutput = document.getElementById('resume-output');
-const templatesGrid = document.getElementById('templates-grid');
 
 let formData = {};
 
-createBtn.addEventListener('click', () => {
-    homepageContainer.style.display = 'none';
-    formContainer.style.display = 'flex';
-    if (window.innerWidth > 768) {
-        previewSide.style.display = 'flex';
-    } else {
-        previewSide.style.display = 'none';
-    }
-    const form = document.getElementById('resume-form');
-    form.addEventListener('input', updatePreview);
-    form.addEventListener('submit', saveForm);
-    addBulletPointListeners();
-    updatePreview({ target: { form } });
-});
-
-function convertToBullets(text) {
-    if (!text) return "N/A";
-    const lines = text.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0);
-    if (lines.length === 0) return "N/A";
-    return `<ul style="list-style-position: inside; padding-left: 0;">${lines.map(line => `<li>${line}</li>`).join('')}</ul>`;
-}
-
-function addBulletPointListeners() {
-    const form = document.getElementById('resume-form');
-    if (!form) return;
-    ['hobbies', 'experience', 'skills', 'certifications', 'education'].forEach(name => {
-        const textarea = form.querySelector(`textarea[name="${name}"]`);
-        if (textarea) {
-            textarea.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    const start = textarea.selectionStart;
-                    const end = textarea.selectionEnd;
-                    const value = textarea.value;
-                    textarea.value = value.substring(0, start) + "\n" + value.substring(end);
-                    textarea.selectionStart = textarea.selectionEnd = start + 1;
-                    textarea.dispatchEvent(new Event('input'));
-                }
-            });
-        }
-    });
-}
-
-function updatePreview(e) {
-    const form = e.target.form;
-    if (!form) return;
-    const liveData = Object.fromEntries(new FormData(form).entries());
-    // Sanitize the HTML output right before injection
-    previewSide.innerHTML = DOMPurify.sanitize(generateResumeHTML('default', liveData));
-}
-
-function saveForm(e) {
+// === SHOW TEMPLATES BUTTON ===
+document.getElementById("generate-btn").addEventListener("click", function(e){
     e.preventDefault();
-    const data = new FormData(e.target);
+
+    const form = document.getElementById('resume-form');
+    const data = new FormData(form);
     formData = Object.fromEntries(data.entries());
 
     if ((formData.summary || '').length < 50) {
@@ -69,44 +40,44 @@ function saveForm(e) {
         return;
     }
 
-    formContainer.style.display = 'none';
-    templatesContainer.style.display = 'block';
+    // Hide the main homepage content
+    homepageSide.classList.add('hidden');
 
+    // Show the templates container
+    templatesContainer.classList.remove('hidden');
+
+    // Hide the header by removing the class from the body
+    document.body.classList.remove('homepage-active');
+
+    // Build templates grid
     templatesGrid.innerHTML = `
-        <div class="template active" data-template="default">Default Professional</div>
-        <div class="template" data-template="classic">Classic Minimalist</div>
-        <div class="template" data-template="modern">Modern Compact</div>
+        <div class="template active" data-template="default">Classic</div>
+        <div class="template" data-template="classic">Professional</div>
+        <div class="template" data-template="modern">Modern</div>
         <div class="template" data-template="creative">Creative Header</div>
         <div class="template" data-template="technical">Technical Focus</div>
         <div class="template" data-template="simple">Simple Text</div>
+        <div class="template" data-template="stylish">Stylish</div>
     `;
 
     renderTemplate('default');
-}
+});
 
+// === Template Selection ===
 templatesGrid.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('template')) {
+    if (e.target.classList.contains('template')) {
         const templateId = e.target.getAttribute('data-template');
-        
         document.querySelectorAll('.template').forEach(btn => btn.classList.remove('active'));
         e.target.classList.add('active');
-
         renderTemplate(templateId);
     }
 });
 
+// === Render Resume ===
 function renderTemplate(id) {
     const htmlContent = generateResumeHTML(id, formData);
-    // Sanitize the HTML output right before injection
     resumeOutput.innerHTML = DOMPurify.sanitize(htmlContent);
 
-    if (id === 'classic') {
-        resumeOutput.classList.remove('a4-preview');
-    } else {
-        resumeOutput.classList.add('a4-preview');
-    }
-
-    // Add the Preview button (JS only, no HTML edits)
     const btnContainer = document.createElement('div');
     btnContainer.style.textAlign = 'center';
     btnContainer.style.padding = '20px';
@@ -120,15 +91,52 @@ function renderTemplate(id) {
     resumeOutput.appendChild(btnContainer);
 }
 
-function generateResumeHTML(id, data) {
-    const fullName = `${data.firstName || ''} ${data.middleName || ''} ${data.lastName || ''}`.trim() || "Your Name";
-    const addressLine = `${data.address || ''}, ${data.pinCode || ''}`.trim() || "Address, Pin Code";
-    const contactLine = `${data.email || ''} | ${data.phone || ''}`.trim() || "Email | Phone";
+// A new helper function to collect data and generate the experience section HTML
+function generateExperienceHTML() {
+    // 1. Collect all the input fields from the dynamic form
+    const companyInputs = document.querySelectorAll('#experience-container input[name="company[]"]');
+    const datesInputs = document.querySelectorAll('#experience-container input[name="dates[]"]');
+    const descriptionInputs = document.querySelectorAll('#experience-container textarea[name="description[]"]');
 
-    const certsHTML = data.certifications ? convertToBullets(data.certifications) : '';
-    const educationHTML = data.education ? convertToBullets(data.education) : '';
+    let experienceHTML = '';
+
+    // 2. Loop through all the collected fields to build the HTML string
+    // We can use the length of any of the lists since they should all be the same
+    for (let i = 0; i < companyInputs.length; i++) {
+        const company = companyInputs[i].value || '';
+        const dates = datesInputs[i].value || '';
+        const description = descriptionInputs[i].value || '';
+
+        // Only add an entry if the user has entered a company name
+        if (company) {
+            experienceHTML += `
+                <div class="experience-entry">
+                    <p style="font-weight: bold; margin-bottom: 5px;">${company}</p>
+                    
+                    <p style="font-weight: 300; color: #272525ff; margin-bottom: 5px;">${dates}</p>
+                    
+                    <p style="margin-bottom: 10px;">${description}</p>
+                </div>
+            `;
+        }
+    }
+    
+    return experienceHTML;
+}
+
+// Your main function, updated to use the new experience generator
+function generateResumeHTML(id, data) {
+    const fullName = data.name || "Your Name";
+    const fullAddress = data.address || "Your Address";
+    const contactLine = `${data.email || 'Email'} | ${data.phone || 'Phone'}`;
     const summary = data.summary || '';
-    const experience = data.experience || '';
+    
+    // Call our new function to get the dynamically generated experience HTML
+    const experienceHTML = generateExperienceHTML();
+
+    const educationHTML = data.education ? convertToBullets(data.education) : '';
+    const certTrainHTML = data.certTrain ? convertToBullets(data.certTrain) : '';
+    const languageHTML = data.language ? convertToBullets(data.language) : '';
     const skillsHTML = data.skills ? convertToBullets(data.skills) : '';
     const hobbiesHTML = data.hobbies ? convertToBullets(data.hobbies) : '';
 
@@ -141,114 +149,150 @@ function generateResumeHTML(id, data) {
             </div>
         `;
     };
-    
-    const twoColumnLayout = `
-        <div class="resume-body" style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="left-column">
-                ${createSection('Professional Summary', summary, true)}
-                ${createSection('Certifications & Trainings', certsHTML, true)}
-            </div>
-            <div class="right-column">
-                ${createSection('Work Experience', experience, true)}
-                ${createSection('Education', educationHTML, true)}
-                ${createSection('Skills', skillsHTML, true)}
-                ${createSection('Hobbies', hobbiesHTML, true)}
-            </div>
-        </div>
-    `;
 
     const singleColumnLayout = `
-        ${createSection('Professional Summary', summary, true)}
-        ${createSection('Certifications & Trainings', certsHTML, true)}
-        ${createSection('Work Experience', experience, true)}
+        ${createSection('Professional Summary', summary)}
+        ${createSection('Work Experience', experienceHTML, true)}
         ${createSection('Education', educationHTML, true)}
+        ${createSection('Certifications & Trainings', certTrainHTML, true)}
         ${createSection('Skills', skillsHTML, true)}
         ${createSection('Hobbies', hobbiesHTML, true)}
+        ${createSection('Languages', languageHTML, true)}
     `;
-
-    switch (id) {
+    switch(id){
         case 'classic':
-            return `
-        <div class="resume-preview classic-template">
-            <div class="classic-left-column">
-                ${createSection('Professional Summary', summary, true)}
-                ${createSection('Certifications & Trainings', certsHTML, true)}
-            </div>
-            <div class="classic-right-column">
-                <div class="contact-info">
-                    <h1>${fullName}</h1>
-                    <p>${addressLine}</p>
-                    <p>${contactLine}</p>
-                </div>
-                <div class="resume-line"></div>
-                ${createSection('Work Experience', experience, true)}
+            return `<div class="resume-preview classic-template">
+            <div class="classic-resume-header">
+              <h1>${fullName}</h1>
+              <p>${fullAddress}</p>
+              <p>${contactLine}</p>
+              </div>
+            <div class="classic-resume-body">
+            <div class="classic-resume-left">
+                ${createSection('Skills', skillsHTML)}
+
                 ${createSection('Education', educationHTML, true)}
-                ${createSection('Skills', skillsHTML, true)}
+
+                ${createSection('Certifications & Trainings', certTrainHTML, true)}
+
                 ${createSection('Hobbies', hobbiesHTML, true)}
+
+                ${createSection('Languages', languageHTML, true)}
             </div>
-        </div>`;
+
+            <div class="classic-resume-right">
+                ${createSection('Professional Summary', summary)}
+
+                ${createSection('Work Experience', experienceHTML, true)}
+            </div>
+            </div>
+    </div>`;
         case 'modern':
-            return `
-                <div class="resume-preview" style="padding:30px; background:white; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-                    <div style="background-color: #333; color: white; padding: 20px; margin-bottom:20px;">
-                        <h1>${fullName}</h1>
-                        <p>${contactLine}</p>
-                    </div>
-                    ${singleColumnLayout}
-                </div>`;
+            return `<div class="resume-preview modern-template" style="padding:30px; background:white;"><div style="background-color: #333; color: white; padding: 20px; margin-bottom:20px;"><h1>${fullName}</h1><p>${fullAddress}</p><p>${contactLine}</p></div>${singleColumnLayout}</div>`;
         case 'creative':
-    return `
-        <div class="resume-preview creative-template" style="padding:40px; background:white;">
-            <h1 class="creative-title">${fullName}</h1>
-            <p class="creative-contact"><strong>Contact:</strong> ${contactLine} | ${addressLine}</p>
-            <hr class="creative-divider">
-            ${singleColumnLayout}
-        </div>`;
+            return `<div class="resume-preview creative-template" style="padding:40px; background:white;"><h1 class="creative-title">${fullName}</h1><p>${fullAddress}</p><p class="creative-contact"><strong>Contact:</strong> ${contactLine}</p><hr class="creative-divider">${singleColumnLayout}</div>`;
         case 'technical':
-            return `
-                <div class="resume-preview" style="padding:40px; background:white;">
-                    <h3>CONTACT</h3>
-                    <h1>${fullName} | ${data.email} | ${data.phone}</h1>
-                    <hr>
-                    ${singleColumnLayout}
-                </div>`;
+            return `<div class="resume-preview technical-template" style="padding:40px; background:white;"><h3>CONTACT</h3><h1>${fullName} | ${fullAddress} | ${data.email} | ${data.phone}</h1><hr>${singleColumnLayout}</div>`;
         case 'simple':
-            return `
-                <div class="resume-preview" style="padding:40px; background:white; font-family: 'Times New Roman', Times, serif;">
-                    <b>Name:</b> ${fullName}<br>
-                    <b>Contact:</b> ${contactLine}<br>
-                    <b>Address:</b> ${addressLine}<br><br>
-                    ${singleColumnLayout}
-                </div>`;
-        case 'default':
+            return `<div class="resume-preview simple-template" style="padding:40px; background:white; font-family: 'Times New Roman', serif;"><b>Name:</b> ${fullName}<br><b>Address:</b> ${fullAddress}<br><b>Contact:</b> ${contactLine}<br><br>${singleColumnLayout}</div>`;
+            case 'stylish':
+            return `<div class="resume-preview stylish-template">
+            <!-- Header -->
+            <div class="stylish-resume-header">
+    <h1>${fullName}</h1>
+    <p>${fullAddress}</p>
+    <p>${contactLine}</p>
+  </div>
+
+  <!-- Professional Summary -->
+  <div class="stylish-resume-summary">
+    ${createSection('Professional Summary', summary)}
+  </div>
+
+  <!-- Skills (top row) -->
+  <div class="stylish-resume-work-top">
+    ${createSection('Work Experience', experienceHTML, true)}
+  </div>
+
+  <!-- Two Column Layout -->
+  <div class="stylish-resume-columns">
+    <!-- Left Column -->
+    <div class="resume-col left-col">
+      ${createSection('Skills', skillsHTML)}
+      ${createSection('Education', educationHTML, true)}
+      ${createSection('Certifications & Trainings', certTrainHTML, true)}
+    </div>
+
+    <!-- Right Column -->
+    <div class="resume-col right-col">
+      ${createSection('Hobbies', hobbiesHTML, true)}
+      ${createSection('Languages', languageHTML, true)}
+    </div>
+  </div>
+</div>
+`;
         default:
-            return `
-                <div class="resume-preview" style="background:white; padding:20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.2);">
-                    <div class="resume-header">
-                        <h1>${fullName}</h1>
-                        <p>${addressLine}</p>
-                        <p>${contactLine}</p>
-                    </div>
-                    <div class="resume-line"></div>
-                    ${twoColumnLayout}
-                </div>`;
+    return `
+    <div class="resume-preview default-template">
+            <div class="default-resume-left">
+              <div class="default-resume-header">
+              <h1>${fullName}</h1>
+              <p>${fullAddress}</p>
+              <p>${contactLine}</p>
+              </div>
+            
+                ${createSection('Skills', skillsHTML)}
+
+                ${createSection('Education', educationHTML, true)}
+
+                ${createSection('Hobbies', hobbiesHTML, true)}
+
+                ${createSection('Languages', languageHTML, true)}
+            </div>
+
+            <div class="default-resume-right">
+                ${createSection('Professional Summary', summary)}
+
+                ${createSection('Work Experience', experienceHTML, true)}
+                
+                ${createSection('Certifications & Trainings', certTrainHTML, true)}
+            </div>
+    </div>`;
     }
 }
 
-/**
- * Open a print-friendly HTML preview in a new tab (reliable, no clipping).
- * The user uses the browser's "Print" → "Save as PDF".
- */
-function previewPDF(templateId) {
+// === Convert text to bullet list ===
+function convertToBullets(text){
+    if(!text) return "";
+    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l=>l.length>0);
+    if(lines.length===0) return "";
+    return `<ul style="list-style-position: inside; padding-left: 0;">${lines.map(l=>`<li>${l}</li>`).join('')}</ul>`;
+}
+
+// =================== THEME SWITCHER ===================
+document.getElementById("theme").addEventListener("change", function () {
+  const selectedTheme = this.value;
+  const resume = document.querySelector(".resume-preview");
+
+  // remove old theme classes
+  resume.classList.remove("theme1", "theme2", "theme3");
+
+  if (selectedTheme) {
+    resume.classList.add(selectedTheme);
+  }
+});
+
+// === Preview PDF ===
+function previewPDF(templateId){
     const original = resumeOutput.querySelector('.resume-preview');
-    if (!original) {
-        alert('Error: Could not find resume content to preview.');
+    if(!original){
+        alert('Error: Could not find resume content.');
         return;
     }
 
     const w = window.open('', '_blank');
-    if (!w) {
-        alert('Please allow popups for this site to preview the PDF.');
+    if(!w){
+        alert('Please allow popups for this site.');
         return;
     }
 
@@ -294,10 +338,11 @@ body, html {
         box-shadow: 0 0 10px rgba(0,0,0,0.2);
         padding: 20mm;
     }
-    @page {
-        size: A4;
-        margin: 12mm;
-    }
+   @page {
+    size: A4;
+    margin: 6mm 8mm; /* top-bottom 6mm, left-right 8mm */
+     }
+
     @media print {
         body {
             background: white !important;
