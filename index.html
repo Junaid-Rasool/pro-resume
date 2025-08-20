@@ -2,96 +2,187 @@
 <html lang="en">
 <head>
     <meta name="google-site-verification" content="2IFMeleJSM7BGnIEh05ytCGvJLlsMPHuFlHHefSza3c" />
+    <!-- Basic SEO -->
+<title>Pro-Resume Builder | Free</title>
+<meta name="description" content="Build a free professional resume online within minutes. ATS-friendly templates, instant 100% Free PDF download. Start your career with a perfect resume.">
+<meta name="keywords" content="resume builder, free resume builder, ats resume, online cv maker, resume pdf, professional resume templates">
+
+<!-- Mobile Friendly -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Open Graph (for social sharing) -->
+<meta property="og:title" content="Free Resume Builder - Create Resume Online">
+<meta property="og:description" content="Build your resume for free. Easy, fast, and ATS-friendly resume templates with instant PDF download.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://username.github.io/resumebuilder/">
+<meta property="og:image" content="https://username.github.io/resumebuilder/preview.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Resume Builder Online">
+<meta name="twitter:description" content="Create resumes with Pro-Resume online for free. Download ATS-friendly resume PDF instantly.">
+<meta name="twitter:image" content="https://username.github.io/resumebuilder/preview.jpg">
+
     <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Resume Builder</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="resume.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    </head>
-<body>
+</head>
+<body class="homepage-active">
 
-<!-- Homepage Container -->
-<div id="homepage-container" class="container">
-    <div class="homepage" id="homepage-side">
-        <div class="top-text" id="top-text">
-           <div class="orbit-container">
-               <h4>R E S U M E H U B</h4>
-           </div>
-        </div>
-
-        <div class="homepage-text" id="homepage-text">
+    <!-- <div class="fixed-wrapper">
+        <header class="header-container">
+            <h1>Free Resume Builder</h1> 
             <p>Craft your perfect resume with ease.</p>
-        </div>    
-        <div class="resume-btn" id="resume-btn">
-            <hr/>
-            <hr/>
-            <button id="create-btn">CREATE YOUR RESUME</button>
-            <hr/>
-            <hr/>
-        </div>
-            <h3>GOOD RESUMES LAND GOOD JOBS.</h3>
-        </div>        
-    </div>
+        </header>
+    </div> -->
+
+    <div class="homepage" id="homepage-side">
+
+        <div class="navbar">
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#top-text2">Features</a></li>
+      <li><a href="#form-side">Templates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 </div>
 
-<!-- Form Container - initially hidden -->
-<div id="form-container" class="form-container" style="display:none;">
-    <div class="form-side" id="form-side">
-        <h2 class="form-heading">BUILD YOUR RESUME</h2>
-        <form id="resume-form">
-            <h3>First Name</h3>
-            <input name="firstName" type="text" placeholder="First Name" required>
-            <h3>Middle Name</h3>
-            <input name="middleName" type="text" placeholder="Middle Name">
-            <h3>Last Name</h3>
-            <input name="lastName" type="text" placeholder="Last Name" required>
-            <h3>Address</h3>
-            <input name="address" type="text" placeholder="Address" required>
-            <h3>Pin Code</h3>
-            <input name="pinCode" type="text" placeholder="Pin Code" required>
-            <h3>Email</h3>
-            <input name="email" type="email" placeholder="Email" required>
-            <h3>Phone</h3>
-            <input name="phone" type="text" placeholder="Phone" required>
-            <h3>Professional Summary</h3>
-            <textarea name="summary" type="text" placeholder="Professional Summary" required></textarea>
-
-            <h3>Certifications & Trainings</h3>
-            <textarea name="certifications" placeholder="Enter your certifications and trainings"></textarea>
-            <h3>Work Experience</h3>
-            <textarea name="experience" type="text" placeholder="Work Experience (in years)"></textarea>
-            <h3>Education</h3>
-            <textarea name="education" placeholder="Enter your educational background here (highest qualification)"></textarea>
-            <h3>Hobbies</h3>
-            <textarea name="hobbies" placeholder="Enter your hobbies here"></textarea>
-
-            <h3>Skills</h3>
-            <textarea name="skills" placeholder="Enter your skills here"></textarea>
-            
-            <button type="submit">GENERATE RESUME TEMPLATES</button>
-        </form>
-    </div>
-    <div class="text-side" id="preview-side" style="display:none;">
-        <!-- Live preview will be injected here -->
-    </div>
-</div>
-
-<!-- Templates Container - initially hidden -->
-<div id="templates-container" class="templates-container" style="display:none;">
-    <h2>Select a Template</h2>
-    <div class="templates-grid" id="templates-grid">
+        <div class="page-heading" id="page-heading">
+            <h1><h1>
+        </div>
+        <div class="top-text" id="top-text">
+            <h1>“No Design Skills? <span class="highlight">No Problem!”</span></h1>
+            <p>Focus on your career, not formatting. Our free resume builder makes resumes that recruiters love.</p>
         </div>
 
-    <div id="resume-output" style="margin-top:30px; text-align: left; background-color: #f0f0f0; border-radius: 8px;">
+        <div class="top-text2" id="top-text2">
+            <h1>Why use <span class="highlight">Pro-Resume</span></h1>
+            <p>No Sign-in Required!</p>
+            <p>100% Free. No hidden fees</p>
+            <p>Easy To Use</p>
+            <p>Efficient</p>
+            <p>No Watermarks</p>
+            <p>Download as PDF</p>
         </div>
+
+        <div class="top-text3" id="top-text3">
+            <h1>Ready To Land Your <span class="highlight">Dream Job?</span></h1>
+            <p>Fill The Form Below To Generate Resumes For Free.</p>
+        </div>
+
+        <div class="form-side" id="form-side">
+            <h2 class="form-heading">Build Your Resume <br> <span style="font-size: 16px; font-style: italic;">(All fields are not compulsory.)</span></h2>
+            <form id="resume-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address With PIN Code</label>
+                    <input type="text" id="address" name="address" placeholder="Address, PIN Code" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="summary">Professional Summary</label>
+                    <textarea id="summary" name="summary" placeholder="Write a short career summary"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="certTrain">Certificates & Trainings</label>
+                    <textarea id="certTrain" name="certTrain" placeholder="Write about your Certificates and Trainings"></textarea>
+                </div>
+
+                <div class="form-group">
+    <label>Work Experience</label>
+    <div id="experience-container">
+        <div class="experience-input-group">
+            <input type="text" name="company[]" placeholder="Company Name" required>
+            <input type="text" name="dates[]" placeholder="Dates (e.g., 2015-2018)" required>
+            <textarea name="description[]" placeholder="Description of your role and responsibilities" required></textarea>
+        </div>
+    </div>
+    <button type="button" id="add-experience-btn">+ Add More Experience</button>
 </div>
 
-<footer>
-   &copy; 2025 All rights reserved.
+                <div class="form-group">
+                    <label for="education">Education</label>
+                    <textarea id="education" name="education" placeholder="Enter your educational qualifications"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="hobbies">Interests  Hobbies</label>
+                    <textarea id="hobbies" name="hobbies" placeholder="E.g. Reading, Hiking, Cooking"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="skills">Skills</label>
+                    <textarea id="skills" name="skills" placeholder="E.g. Python, MS Office, Communication"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="language">Languages</label>
+                    <textarea id="language" name="language" placeholder="E.g. English, French, Urdu, Arabic"></textarea>
+                </div>
+
+
+                <button id="generate-btn" type="button">SHOW TEMPLATES</button>
+                <div class="form-message">
+                    <p>Click the button above to generate pre-filled resumes and pick one of your choice.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="templates-container" class="hidden">
+        <h2>Select a Template</h2>
+       <h4>Click <a href="#preview-pdf-btn">Review PDF button</a> below to review and download your resume.</h4>
+        <div class="template-grid" id="templates-grid"></div>
+
+        <div id="resume-output"></div>
+        
+    </div>
+
+    <footer class="footer">
+        <div class="footer-top">
+  <div class="about" id="about">
+    <h3>About</h3>
+    <p>
+      Pro-Resume is designed to help job seekers create professional resumes without any design skills. Our free resume builder offers a variety of templates that are easy to use and time-saving. Whether you're just starting your career or looking to advance, Pro-Resume has you covered.
+    </p>
+  </div>
+  <div class="contact" id="contact">
+     <h3>Contact Me</h3>
+    <p>
+      📧 <a href="mailto:junaidrasool910@gmail.com">Email</a>
+    </p>
+    <h3>Follow Me</h3>
+    <p><a href="#">LinkedIn</a> | <a href="#">GitHub</a></p>
+  </div>
+</div>
+  <div class="social">
+    
+  </div>
+  <div class="copyright"><p>&copy; 2025 Pro-Resume. All rights reserved.</p></div>
 </footer>
 
-<script src="resume.js"></script>
+
+    <script src="resume.js"></script>
+
 </body>
 </html>
-
