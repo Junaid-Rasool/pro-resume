@@ -792,7 +792,7 @@ form#resume-form {
 
 /* Technical Template Starts */
 .technical-template {
-  
+  width: 500px;
   margin: 0 auto;
   padding: 20px;
   font-family: "Inter", Arial, sans-serif;
@@ -1163,5 +1163,6 @@ section, .resume-section {
   page-break-inside: avoid;
   break-inside: avoid;
 }
+
 
 
