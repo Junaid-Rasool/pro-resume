@@ -13,65 +13,6 @@
   display: none !important;
 }
 
-/* Default Theme (your current design) */
-.resume-output.default {
-  font-family: Arial, sans-serif;
-  color: #000;
-}
-
-/* Classic Theme */
-.resume-output.classic {
-  font-family: "Times New Roman", serif;
-  color: #000;
-}
-.resume-output.classic h1, 
-.resume-output.classic h2 {
-  color: #222;
-}
-.resume-output.classic .section-title {
-  border-bottom: 2px solid #222;
-}
-
-/* Modern Theme */
-.resume-output.modern {
-  font-family: "Helvetica Neue", sans-serif;
-  color: #333;
-}
-.resume-output.modern h1, 
-.resume-output.modern h2 {
-  color: #007BFF;
-}
-.resume-output.modern .section-title {
-  border-bottom: 2px solid #007BFF;
-}
-
-/* Elegant Theme */
-.resume-output.elegant {
-  font-family: Georgia, serif;
-  color: #444;
-}
-.resume-output.elegant h1,
-.resume-output.elegant h2 {
-  color: #B76E79;
-}
-.resume-output.elegant .section-title {
-  border-bottom: 2px solid #B76E79;
-}
-
-/* Bold Theme */
-.resume-output.bold {
-  font-family: Verdana, sans-serif;
-  color: #111;
-}
-.resume-output.bold h1,
-.resume-output.bold h2 {
-  color: #E63946;
-}
-.resume-output.bold .section-title {
-  border-bottom: 3px solid #E63946;
-}
-
-
 /* Optional: make each section take full width */
 #home-container,
 #form-container,
@@ -94,18 +35,6 @@ body {
     /* padding-top: 80px; */ /* equal to header height */
     overflow-x: hidden; /* avoid horizontal scroll */
     overflow-y: auto;   /* vertical scroll */
-}
-
-/* Hide header on non-
- */
-/* By default, hide the fixed header wrapper */
-.fixed-wrapper {
-    display: none;
-}
-
-/* Only show the fixed header wrapper when the body has the 'homepage-active' class */
-body.homepage-active .fixed-wrapper {
-    display: block;
 }
 
 body, html {
@@ -177,7 +106,7 @@ hr {
 
 /* Homepage Section - The core of the design */
 .homepage {
-    flex: 1; /* It was 10, but 1 is fine since it's the only element here */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -189,13 +118,8 @@ hr {
     
 }
 
-/* ---- tune these if your header height changes ---- */
-:root{
-  --header-height: 80px;   /* actual fixed header height */
-  --content-max: 900px;    /* max width for the hero text */
-}
 
-/* Group the common styles for both containers */
+/* Group the common styles for text containers */
         .top-text,
         .top-text2,
         .top-text3 {
@@ -285,6 +209,8 @@ hr {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
+/* Form Side starts */
+
 .form-side {
     background: rgba(44, 2, 36, 0.7);
     padding: 40px;
@@ -298,9 +224,6 @@ hr {
     text-align: left;
     border: 1px solid rgba(157, 6, 132, 0.4);
 }
-
-
-
 
 .form-heading {
     text-align: center;
@@ -411,7 +334,9 @@ textarea {
 #add-experience-btn:hover {
   background-color: #0056b3;
 }
-/* Style for the button */
+/* Form Side ends */
+
+/* Style for the SHOW TEMPLATES button */
 #generate-btn {
     padding: 15px 30px;
     background: linear-gradient(135deg, #9d0684, #5a0448);
@@ -459,6 +384,8 @@ textarea {
             color: #ca8cd0;
 
         }
+
+/* TEMPLATES CONTAINER STARTS  */        
 
 /* Reduce the top margin for the template page */
 #templates-container {
@@ -550,9 +477,12 @@ textarea {
 #resume-output {
     padding: 10px;
     align-self: center;
+    max-width: 700px;
 }
 
-/* Resume Layout */
+/* TEMPLATES CONTAINER ENDS  */ 
+
+/* Resume Layout starts */
 .resume-preview {
     width: 200;       /* A4 width */
     min-height: 297mm;  /* A4 height */
@@ -564,13 +494,6 @@ textarea {
     background: white;
     overflow: hidden;
 }
-
-/* .form-heading, p{
-    color: rgb(248, 247, 250);
-    text-align: center;
-    margin-bottom: 0;
-    padding-bottom: 5px;
-} */
 
 .resume-header {
     color: rgb(0, 0, 0);
@@ -618,19 +541,6 @@ textarea {
     overflow-wrap: break-word;
 }
 
-/* .resume-section h3 {
-    
-    display: inline-block;
-    color: #1b1a1a;
-    border: solid 1px #010101a4;
-    background-color: rgba(28, 89, 174, 0.08);
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 5px;
-    padding: 10px;
-    width: fit-content;
-} */
-
 .resume-section p,
 .resume-section ul {
     margin-top: 0;
@@ -646,11 +556,12 @@ form#resume-form {
     max-width: 500px;
     width: 80%;
 }
+/* Resume Layout ends */
 
-/* --- Default Template Styles --- */
+/* --- Default Template Styles Starts --- */
 
 .default-template {
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   font-family: "Inter", Arial, sans-serif;
@@ -669,8 +580,6 @@ form#resume-form {
   padding: 0;          /* no outer padding */
   margin: 0;           /* no outer margin */
   box-sizing: border-box;
-
-
   /* Optional: shadow only for screen */
   box-shadow: 0 0 8px rgba(0,0,0,0.15);
 }
@@ -715,9 +624,9 @@ form#resume-form {
     height: 290mm; /* Ensure full height for PDF */
   }
 }
+/* --- Default Template Styles Ends --- */
 
-
-/* --- 'Classic' Template --- */
+/* --- 'Classic' Template Starts --- */
 
 .classic-template {
   max-width: 900px;
@@ -737,7 +646,7 @@ form#resume-form {
   display: flex;
     flex-direction: column;
   gap: 20px;
-  padding: 0;          /* no outer padding */
+  padding: 20px;          /* no outer padding */
   margin: 0;           /* no outer margin */
   box-sizing: border-box;
 
@@ -761,7 +670,6 @@ form#resume-form {
   order: 1; /* send right column to left */
 }
 
-
 /* Columns get their own padding */
 .classic-resume-left,
 .classic-resume-right {
@@ -773,15 +681,12 @@ form#resume-form {
   min-width: 0;
 }
 
-
-
 .classic-template h3 {
     text-transform: uppercase;
     padding: 8px;
     padding-left: 0;
     border-bottom: #0d8aa0 solid 2px;
-    margin-bottom: 10px;
-    
+    margin-bottom: 10px;    
     color: #098ab6;
 }
 
@@ -801,19 +706,9 @@ form#resume-form {
 .classic-resume-header h1{
     color: #2f7183;
 }
+/* --- 'Classic' Template Ends --- */
 
-/* Remove extra print margins */
-@media print {
-  body, html {
-    margin: 0;
-    padding: 0;
-  }
-  .resume-preview.default-template {
-    box-shadow: none;   /* shadows look ugly in PDF */
-    margin: 0;
-  }
-}
-
+/* Modern Template */
 .modern-template {
   max-width: 900px;
   margin: 0 auto;
@@ -823,6 +718,18 @@ form#resume-form {
   background: #fff;
 }
 
+.modern-template h3{
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-style: oblique;
+    padding: 10px;
+    padding-left: 0;
+    border-bottom: #246662 solid 2px;
+    width: fit-content;
+}
+/* Modern Template Ends */
+
+/* Creative Template Starts */
 .creative-template {
   max-width: 900px;
   margin: 0 auto;
@@ -866,19 +773,26 @@ form#resume-form {
     font-weight: bold;
 }
 
-/* Modern Template */
-.modern-template h3{
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-style: oblique;
-    padding: 10px;
-    padding-left: 0;
-    border-bottom: #246662 solid 2px;
-    width: fit-content;
+@media print {
+  .creative-template {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 15mm !important;
+  }
+  
+  .creative-template section,
+  .creative-template h2,
+  .creative-template h3 {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }
 
+/* Creative Template Ends */
+
+/* Technical Template Starts */
 .technical-template {
-  max-width: 900px;
+  
   margin: 0 auto;
   padding: 20px;
   font-family: "Inter", Arial, sans-serif;
@@ -901,7 +815,9 @@ form#resume-form {
     margin-bottom: 5px;
     color: #246662;  
 }
+/* Technical Template Ends */
 
+/*Simple Template Starts*/
 .simple-template h3{
    padding: 10px; 
    padding-left: 0;
@@ -915,8 +831,9 @@ form#resume-form {
   color: #2a2a2a;
   background: #fff;
 }
+/*Simple Template Ends */
 
-/* Scope all rules to stylish-template so other templates aren’t affected */
+/* Stylish Template Starts */
 .stylish-template {
   max-width: 900px;
   margin: 0 auto;
@@ -1007,38 +924,41 @@ form#resume-form {
     page-break-inside: avoid;
   }
 }
+/* Stylish Template Ends */
 
-
-#preview-pdf-btn {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 30px;font-family: Consolas, 'Courier New', monospace;
-    font-size: 1.1rem;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
+/* Download PDF button starts */
+#download-pdf-btn {
+  background: linear-gradient(135deg, #04efe3b9, #ca38c8ac, #72eb07dc); /* nice blue gradient */
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-#preview-pdf-btn:hover {
-    background: linear-gradient(135deg, #ff9966, #ff5e62);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+#download-pdf-btn:hover {
+  background: linear-gradient(135deg, #4338ca, #6f9e7a);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(4, 8, 230, 0.808);
 }
 
-#preview-pdf-btn:active {
-    transform: scale(0.98);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+#download-pdf-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-#preview-pdf-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 114, 255, 0.4);
+#download-pdf-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
 }
+/* Download PDF button starts */
+
+/* FOOTER STARTS */
 
 .footer {
     
@@ -1087,7 +1007,7 @@ form#resume-form {
     color: #fdfdfd;
     margin-top: 10px;
 }
-
+/* FOOTER STARTS */
 
 
 /* Override layout limits when exporting to PDF */
@@ -1119,43 +1039,6 @@ form#resume-form {
     height: auto !important;
 }
 
-.pdf-preview-container {
-    display: flex;
-    justify-content: center;
-    background: #ccc; /* light gray background like PDF readers */
-    
-}
-
-.pdf-preview-container iframe {
-    border: none;
-    width: 794px; /* A4 width in px at 96 DPI */
-    height: 1123px; /* A4 height */
-    background: white;
-    
-}
-
-.preview-a4-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #ccc;
-  
-}
-
-.preview-a4-page {
-  width: 794px;
-  background: white;
-  height: auto; /* allow flexible height */
-  min-height: 1123px; /* still keeps A4 min size */
-  
-  /*overflow: hidden;  hides horizontal lines from bg */
-  
-}
-
-.preview-a4-page > *:last-child {
-  margin-bottom: 0; /* remove last element's bottom margin */
-}
-
 /* PDF export margin simulation */
 .pdf-export .resume-preview {
   padding: 20mm !important;
@@ -1174,32 +1057,14 @@ form#resume-form {
 
 @media print {
     /* Remove shadows for clean PDF output */
-    .resume-preview,
-    .preview-a4-page {
+    .resume-preview {
         
         background: white !important;
         overflow: visible !important;
         height: auto !important;
     }
 
-    /* Let the page expand naturally */
-    .preview-a4-page {
-        height: auto !important;
-        min-height: 1123px; /* A4 height at 96dpi */
-        page-break-after: always;
-    }
-}
-
-@media (max-width: 768px) {
-    #preview-side {
-         display: none !important;
-    }
-}
-
-/* Also for preview tab (before printing) */
-.pdf-preview-container iframe,
-.preview-a4-page {
-    box-shadow: none !important;
+ 
 }
 
 @media print {
@@ -1279,6 +1144,24 @@ form#resume-form {
         page-break-after: avoid;
         break-after: avoid;
     }
+}
+
+/* Prevent breaking right after h2 or h3 */
+h2, h3 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Prevent breaking before h2 or h3 */
+h2, h3 {
+  page-break-before: avoid;
+  break-before: avoid;
+}
+
+/* Prevent breaking inside sections */
+section, .resume-section {
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 
